@@ -1,15 +1,83 @@
-//your variable declarations here
+SpaceShip bob = new SpaceShip();
+Star[] sky = new Star[(int)(Math.random()*100)+50];
 public void setup() 
 {
-  //your code here
+  size(800,800);
+  for(int i = 0; i<sky.length; i++)
+  {
+    sky[i] = new Star();
+  }
 }
 public void draw() 
 {
-  //your code here
+  background(0);
+  bob.show();
+  bob.move();
+  for (int i = 0; i<sky.length; i++)
+  {
+    sky[i].show();
+  }
 }
-class SpaceShip //extends Floater  
+public void keyPressed(){
+  if (key == 'h') {
+    bob.setDirectionX(0);
+    bob.setDirectionY(0);
+    bob.setX((int)(Math.random()*800));
+    bob.setY((int)(Math.random()*800));
+  }
+  if (key == 'w') {
+    bob.accelerate(.3);
+  }
+  if (key == 'a') {
+    bob.rotate(-20);
+  }
+  if (key == 's') {
+    bob.deaccelerate(.3);
+  }
+  if (key == 'd') {
+    bob.rotate(20);
+  }
+}
+class Star 
+{
+  private int mySX, mySY;
+  public Star()
+  {
+    mySX=(int)(Math.random()*800);
+    mySY=(int)(Math.random()*800);
+  }
+  public void show()
+  {
+    ellipse(mySX,mySY,1,1);
+  }
+}
+class SpaceShip extends Floater  
 {   
-    //your code here
+  public SpaceShip()
+  {
+    corners = 4;
+    int[] xS = {-8,16,-8,-2};
+    int[] yS = {-8,0,8,0};
+    xCorners = xS;
+    yCorners = yS;
+    myColor = 255;
+    myCenterX = 400;
+    myCenterY = 400;
+    myDirectionX = 2;
+    myDirectionY = 3;
+    myPointDirection = 10;
+  }
+  public void setX(int x){myCenterX=x;}  
+  public int getX(){return (int)myCenterX;}   
+  public void setY(int y){myCenterY=y;}   
+  public int getY(){return (int)myCenterY;}   
+  public void setDirectionX(double x){myDirectionX=x;}   
+  public double getDirectionX(){return myDirectionX;} 
+  public void setDirectionY(double y){myDirectionY=y;}     
+  public double getDirectionY(){return myDirectionY;}   
+  public void setPointDirection(int degrees){myPointDirection=degrees;}   
+  public double getPointDirection(){return myPointDirection;} 
+  
 }
 abstract class Floater //Do NOT modify the Floater class! Make changes in the SpaceShip class 
 {   
@@ -40,6 +108,14 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
     myDirectionX += ((dAmount) * Math.cos(dRadians));    
     myDirectionY += ((dAmount) * Math.sin(dRadians));       
   }   
+  public void deaccelerate (double dAmount)   
+  {          
+    //convert the current direction the floater is pointing to radians    
+    double dRadians =myPointDirection*(Math.PI/180);     
+    //change coordinates of direction of travel    
+    myDirectionX -= ((dAmount) * Math.cos(dRadians));    
+    myDirectionY -= ((dAmount) * Math.sin(dRadians));       
+  } 
   public void rotate (int nDegreesOfRotation)   
   {     
     //rotates the floater by a given number of degrees    
@@ -87,4 +163,3 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
     endShape(CLOSE);  
   }   
 } 
-
