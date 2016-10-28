@@ -24,6 +24,7 @@ public void keyPressed(){
     bob.setDirectionY(0);
     bob.setX((int)(Math.random()*800));
     bob.setY((int)(Math.random()*800));
+    bob.setPointDirection((int)(Math.random()*360));
   }
   if (key == 'w') {
     bob.accelerate(.3);
