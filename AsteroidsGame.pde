@@ -1,5 +1,5 @@
 SpaceShip bob = new SpaceShip();
-Asteroid[] aSky = new Asteroid[(int)(Math.random()*8)+15];
+ArrayList <Asteroid> aSky = new ArrayList <Asteroid>(); 
 Star[] sky = new Star[(int)(Math.random()*25)+75];
 public void setup() 
 {
@@ -8,9 +8,10 @@ public void setup()
   {
     sky[i] = new Star();
   }
-  for(int i = 0; i<aSky.length; i++)
+  for(int i = 0; i<(int)(Math.random()*8)+15; i++)
   {
-    aSky[i] = new Asteroid();
+    Asteroid someAsteroid = new Asteroid();
+    aSky.add(someAsteroid);
   }
 }
 public void draw() 
@@ -22,11 +23,18 @@ public void draw()
   {
     sky[i].show();
   }
-  for (int i = 0; i<aSky.length; i++)
+  for (int i = 0; i<aSky.size(); i++)
   {
-    aSky[i].show();
-    aSky[i].move();
+    aSky.get(i).show();
+    aSky.get(i).move();
+    float distant = dist(bob.getX(),bob.getY(),aSky.get(i).getX(),aSky.get(i).getY());
+    if (distant < 20) {
+      aSky.remove(aSky.get(i));
+      Asteroid someAsteroid = new Asteroid();
+      aSky.add(someAsteroid);
+    }
   }
+
 }
 public void keyPressed(){
   if (key == 'h') {
