@@ -1,6 +1,7 @@
 SpaceShip bob = new SpaceShip();
 ArrayList <Asteroid> aSky = new ArrayList <Asteroid>(); 
 Star[] sky = new Star[(int)(Math.random()*25)+75];
+ArrayList <Bullet> bSky = new ArrayList <Bullet>();
 public void setup() 
 {
   size(800,800);
@@ -34,7 +35,25 @@ public void draw()
       aSky.add(someAsteroid);
     }
   }
-
+  for (int i = 0; i<bSky.size(); i++) 
+  {
+    bSky.get(i).show();
+    bSky.get(i).move();
+  }
+  for (int i = 0; i<bSky.size(); i++) 
+  {
+    for (int j = 0; j<aSky.size(); j++)
+    {
+      float distant2 = dist(bSky.get(i).getX(),bSky.get(i).getY(),aSky.get(j).getX(),aSky.get(j).getY());
+      if (distant2 < 20) {
+        aSky.remove(j);
+        bSky.remove(i);
+        Asteroid someAsteroid = new Asteroid();
+        aSky.add(someAsteroid);
+        break;
+      }
+    }
+  }
 }
 public void keyPressed(){
   if (key == 'h') {
@@ -45,18 +64,21 @@ public void keyPressed(){
     bob.setPointDirection((int)(Math.random()*360));
   }
   if (key == 'w') {
-    bob.accelerate(.3);
+    bob.accelerate(.2);
   }
   if (key == 'a') {
     bob.rotate(-20);
   }
   if (key == 's') {
-    bob.deaccelerate(.3);
+    bob.deaccelerate(.2);
   }
   if (key == 'd') {
     bob.rotate(20);
   }
-
+  if (key == 'b') {
+    Bullet someBullet = new Bullet(bob);
+    bSky.add(someBullet);
+  }
 }
 
 class Star 
@@ -84,8 +106,8 @@ class SpaceShip extends Floater
     myColor = 255;
     myCenterX = 400;
     myCenterY = 400;
-    myDirectionX = 2;
-    myDirectionY = 3;
+    myDirectionX = 1;
+    myDirectionY = 2;
     myPointDirection = 10;
   }
   public void setX(int x){myCenterX=x;}  

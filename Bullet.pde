@@ -41,6 +41,12 @@ class Bullet extends Floater
 	public double getPointDirection(){return myPointDirection;} 
 	public void show()
 	{
-		ellipse((float)myCenterX,(float)myCenterY,10,10);
+		ellipse((float)myCenterX,(float)myCenterY,5,5);
 	}
+	public void move ()   //move the floater in the current direction of travel
+	{            
+	    myCenterX += myDirectionX;    
+	    myCenterY += myDirectionY;     
+
+    }   
 }
