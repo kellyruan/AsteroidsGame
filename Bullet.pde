@@ -12,7 +12,7 @@ class Bullet extends Floater
 	    myCenterY = 400;
 	    myDirectionX = 2;
 	    myDirectionY = 3;
-	    myPointDirection = 10;
+	    myPointDirection = 0;
 	}
 	public Bullet(SpaceShip theShip)
 	{
@@ -27,7 +27,7 @@ class Bullet extends Floater
 	    myPointDirection = theShip.getPointDirection();
 	    double dRadians = myPointDirection*(Math.PI/180);
 	    myDirectionX = 5*Math.cos(dRadians) + theShip.getDirectionX();
-	    myDirectionY = 5*Math.cos(dRadians) + theShip.getDirectionY();
+	    myDirectionY = 5*Math.sin(dRadians) + theShip.getDirectionY();
 	}
 	public void setX(int x){myCenterX=x;}  
 	public int getX(){return (int)myCenterX;}   
@@ -43,7 +43,7 @@ class Bullet extends Floater
 	{
 		ellipse((float)myCenterX,(float)myCenterY,5,5);
 	}
-	public void move ()   //move the floater in the current direction of travel
+	public void move ()  
 	{            
 	    myCenterX += myDirectionX;    
 	    myCenterY += myDirectionY;     
